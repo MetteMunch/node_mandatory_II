@@ -20,10 +20,10 @@ app.use(session({
 }));
 
 import sessionRouter from "./routes/sessionRouter.js";
-app.use(sessionRouter);
+app.use("/session", sessionRouter);
 
 import authRouter from "./routes/authRouter.js";
-app.use(authRouter);
+app.use("/auth", authRouter);
 
 app.get("/test", (req, res) => {
     res.send({data: "Der er hul igennem til test"});
