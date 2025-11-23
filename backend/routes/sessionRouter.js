@@ -2,12 +2,15 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get("/session/user", (req, res) => {
-    if (!req.session.user) return res.status(401).send({ loggedIn: false });
-    res.send({ loggedIn: true, user: req.session.user, role: req.session.user.role });
+import { isLoggedIn } from "../middleware/auth.js";
+
+//route til at tjekke om brugeren er logget ind
+router.get("/me", isLoggedIn, (req, res) => {
+    res.send({ loggedIn: true, user: req.session.user });
 });
 
-router.post("/session/logout", (req, res) => {
+//route til at tjekke logge brugeren ud / slette sessionen
+router.post("/logout", (req, res) => {
     req.session.destroy(() => {
         res.send({ message: "Logged out" });
     });
