@@ -1,11 +1,15 @@
 import {Router} from 'express';
 import bcrypt from 'bcryptjs';
-import {db} from "../db/db.js";
+import db from "../db/db.js";
 
 const router = Router();
 
 router.post('/signup', async (req, res) => {
     const {fullname, username, email, password} = req.body;
+
+    if(!fullname || !username || !email || !password) {
+        return res.status(400).send({ message: "Missing required fields" });
+    }
 
     //Jeg anvender db.get da jeg ved, at denne quiry vil maksimalt returnere en række
     const checkExistingUser = await db.get('SELECT * FROM users WHERE username = ?;', username);
