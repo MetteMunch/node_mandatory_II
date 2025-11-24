@@ -2,6 +2,7 @@
     import {user, loggedIn, role} from "../stores/user.js";
     import {fetchRequestJson, fetchGet} from "../utils/fetch.js";
     import {navigate} from "svelte-routing";
+    import MainLayout from "../layouts/MainLayout.svelte";
 
     let username = "";
     let password = "";
@@ -58,4 +59,5 @@
         <a href="/signup" class="signup-button">Opret bruger</a>
     </p>
 </div>
+
 

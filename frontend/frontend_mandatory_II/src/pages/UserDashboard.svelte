@@ -5,14 +5,6 @@
     import {fetchRequestJson} from "../utils/fetch.js";
 
 
-    $: if ($loggedIn === false) {
-        navigate("/login");
-    }
-
-    $: if ($loggedIn && $role !== "USER") {
-        navigate("/AdminDashboard");
-    }
-
     let url = "http://localhost:8080/session/logout"
 
     async function logout() {

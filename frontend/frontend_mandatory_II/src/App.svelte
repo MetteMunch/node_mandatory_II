@@ -1,6 +1,7 @@
 <script>
     // TODO: Tjek ud hvorfor ikke svelte-spa-router
     import MainLayout from "./layouts/MainLayout.svelte";
+    import ProtectedRoute from "./components/ProtectedRoute.svelte";
     import {Router, Link, Route} from 'svelte-routing';
     import {fetchGet} from "./utils/fetch.js";
     import {user, loggedIn, role} from "./stores/user.js";
@@ -9,6 +10,7 @@
     import Home from './pages/Home.svelte';
     import UserDashboard from "./pages/UserDashboard.svelte";
     import AdminDashboard from "./pages/AdminDashboard.svelte";
+
 
     //Denne kører når appen starter / loader eller ved refresh
     //Hvis ikke vi har den her, så vil brugeren blive smidt ud ved hver refresh
@@ -32,32 +34,36 @@
     <div>
         <Route path="/">
             <MainLayout>
-                <Home />
+                <Home/>
             </MainLayout>
         </Route>
 
         <Route path="/login">
             <MainLayout>
-                <Login />
+                <Login/>
             </MainLayout>
         </Route>
 
         <Route path="/signup">
             <MainLayout>
-                <Signup />
+                <Signup/>
             </MainLayout>
         </Route>
 
         <Route path="/UserDashboard">
-            <MainLayout>
-                <UserDashboard />
-            </MainLayout>
+            <ProtectedRoute
+                    requiredRole="USER"
+                    component={UserDashboard}
+                    layout={MainLayout}
+            />
         </Route>
 
         <Route path="/AdminDashboard">
-            <MainLayout>
-                <AdminDashboard />
-            </MainLayout>
+            <ProtectedRoute
+                    requiredRole="ADMIN"
+                    component={AdminDashboard}
+                    layout={MainLayout}
+            />
         </Route>
 
     </div>
