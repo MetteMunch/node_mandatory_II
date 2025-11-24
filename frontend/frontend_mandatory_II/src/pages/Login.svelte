@@ -1,39 +1,80 @@
 <script>
     import { onMount } from 'svelte';
-    import { fetchGet, fetchRequestJson } from "../utils/fetch.js";
+    onMount(() => {
+        console.log("Login component mounted");
+    });
+
+
+    import { user, loggedIn, role } from "../stores/user.js";
+    import { fetchRequestJson, fetchGet } from "../utils/fetch.js";
+    import { navigate } from "svelte-routing";
+
+    let username = "";
+    let password = "";
 
     let url = "http://localhost:8080/auth/login";
-    // let body =
-
-    // onMount(() => {
-    //     const result = fetchRequestJson(url, )
-    //     }
-    //
-    //
-    //
-    // )
 
 
+    async function login() {
+        const body = { username, password };
+        console.log(username)
+        console.log(password)
+
+        const res = await fetchRequestJson(url, body, "POST");
+        const data = await res.json();   // <- du får stadig JSON ud her
+
+        if (!res.ok) {
+            alert(data.message);
+            return;
+        }
+
+        //session check fra backend
+        const sessionData = await fetchGet("http://localhost:8080/session/me");
+        console.log("SESSION DATA:", sessionData);
+
+        if (!sessionData.loggedIn) {
+            alert("Kunne ikke logge ind – prøv igen");
+            return;
+        }
+
+        // opdater store fra backend
+        user.set(sessionData.user);
+        loggedIn.set(true);
+        role.set(sessionData.user.role);
+        console.log("user", user)
+        console.log("LoggedIn", loggedIn)
+        console.log("role", role)
+
+
+        // redirect
+        if (sessionData.user.role === "ADMIN") {
+            navigate("/AdminDashboard");
+        } else {
+            navigate("/UserDashboard");
+        }
+
+    }
 </script>
 
-<div class="login-signup-box">
-    <h1>Login</h1>
+    <div class="login-signup-box">
+        <h1>Login</h1>
 
-    <form action="her kommer url der skal indsendes login data til fx /login" method="POST">
+        <label for="username">Brugernavn</label>
+        <input id="username" bind:value={username} />
 
-        <label for="username">Username</label><br>
-        <input type="text" id="username" name="username" placeholder="Enter username" required>
-        <br><br>
+        <label for="password">Password</label>
+        <input id="password" type="password" bind:value={password} />
 
-        <label for="password">Password</label><br>
-        <input type="password" id="password" name="password" placeholder="Enter password" required>
-        <br><br>
+<!--        <button type="button" on:click={login}>Login</button>-->
+        <button type="button" on:click={e => {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log("button clicked");
+          login();
+        }}>Login</button>
 
-        <button type="submit">Login</button>
-        <br><br>
+        <p>Ikke bruger endnu?
+            <a href="/signup" class="signup-button">Opret bruger</a>
+        </p>
+    </div>
 
-        <p>Ikke bruger endnu?</p>
-        <a href="signup.html" class="signup-button">Opret</a>
-
-    </form>
-</div>

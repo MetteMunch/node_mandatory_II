@@ -1,31 +1,52 @@
 <script>
+   import { fetchGet, fetchRequestJson } from "../utils/fetch.js";
+
+   let fullname = "";
+   let username = "";
+   let email = "";
+   let password = "";
+   let confirm = "";
+
+   const url = "http://localhost:8080/auth/signup";
+
+   async function signup() {
+       if (password !== confirm) {
+           //TODO: alle alerts skal være toast
+           alert("Passwords must match");
+           return;
+       }
+
+
+       const body = { fullname, username, email, password };
+
+       const res = await fetchRequestJson(url, body, "POST");
+       const data = await res.json();
+
+       if (!res.ok) {
+           //TODO: alle alerts skal være toast
+           alert(data.message);
+           return;
+       }
+
+       //TODO: alle alerts skal være toast
+       alert("User created!");
+       window.location.href = "/login";
+   }
 
 </script>
 
 <div class="login-signup-box">
     <h1>Sign Up</h1>
 
-    <form action="/signup" method="post">
-        <label for="fullname">Full name</label>
-        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+    <input bind:value={fullname} placeholder="Dit fulde navn" />
+    <input bind:value={username} placeholder="Brugernavn" />
+    <input bind:value={email} placeholder="Email" />
+    <input type="password" bind:value={password} placeholder="Password" />
+    <input type="password" bind:value={confirm} placeholder="Gentag password" />
 
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Choose a username" required>
+    <button on:click={signup} class="signup-button">Opret ny bruger</button>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required>
-
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter password" required>
-
-        <label for="confirm">Confirm Password</label>
-        <input type="password" id="confirm" name="confirm" placeholder="Repeat password" required>
-
-        <button class="signup-btn" type="submit">Sign Up</button>
-    </form>
-
-    <div class="signup-section">
-        <p>Already have an account?<br>
-            <a href="login.html" class="signup-button">Log in here</a></p>
-    </div>
+    <p>Har du allerede en bruger?
+        <a href="/login">Login her</a>
+    </p>
 </div>
