@@ -1,8 +1,9 @@
 <script>
     // TODO: Tjek ud hvorfor ikke svelte-spa-router
-    import { Router, Link, Route } from 'svelte-routing';
-    import { fetchGet} from "./utils/fetch.js";
-    import { user, loggedIn, role } from "./stores/user.js";
+    import MainLayout from "./layouts/MainLayout.svelte";
+    import {Router, Link, Route} from 'svelte-routing';
+    import {fetchGet} from "./utils/fetch.js";
+    import {user, loggedIn, role} from "./stores/user.js";
     import Login from './pages/Login.svelte';
     import Signup from './pages/Signup.svelte';
     import Home from './pages/Home.svelte';
@@ -26,18 +27,40 @@
 </script>
 
 <Router>
-    <nav>
-        <Link to='/'>Home</Link>
-        <Link to='/Login'>Login</Link>
-        <Link to='/Signup'>Opret bruger</Link>
-    </nav>
+
+
     <div>
-        <Route path="/"><Home /></Route>
-        <Route path="/Login"><Login /></Route>
-        <Route path="/Signup"><Signup /></Route>
-        <Route path="/UserDashboard"><UserDashboard /></Route>
-        <Route path="/AdminDashboard"><AdminDashboard /></Route>
+        <Route path="/">
+            <MainLayout>
+                <Home />
+            </MainLayout>
+        </Route>
+
+        <Route path="/login">
+            <MainLayout>
+                <Login />
+            </MainLayout>
+        </Route>
+
+        <Route path="/signup">
+            <MainLayout>
+                <Signup />
+            </MainLayout>
+        </Route>
+
+        <Route path="/UserDashboard">
+            <MainLayout>
+                <UserDashboard />
+            </MainLayout>
+        </Route>
+
+        <Route path="/AdminDashboard">
+            <MainLayout>
+                <AdminDashboard />
+            </MainLayout>
+        </Route>
 
     </div>
+
 
 </Router>

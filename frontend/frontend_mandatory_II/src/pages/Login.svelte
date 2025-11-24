@@ -1,8 +1,7 @@
 <script>
-
-    import { user, loggedIn, role } from "../stores/user.js";
-    import { fetchRequestJson, fetchGet } from "../utils/fetch.js";
-    import { navigate } from "svelte-routing";
+    import {user, loggedIn, role} from "../stores/user.js";
+    import {fetchRequestJson, fetchGet} from "../utils/fetch.js";
+    import {navigate} from "svelte-routing";
 
     let username = "";
     let password = "";
@@ -10,9 +9,9 @@
     let url = "http://localhost:8080/auth/login";
 
     async function login() {
-        const body = { username, password };
+        const body = {username, password};
 
-        const res = await fetchRequestJson(url,body,"POST");
+        const res = await fetchRequestJson(url, body, "POST");
         const data = await res.json();
 
         if (!res.ok) {
@@ -43,19 +42,20 @@
     }
 </script>
 
-    <div class="login-signup-box">
-        <h1>Login</h1>
 
-        <label for="username">Brugernavn</label>
-        <input id="username" bind:value={username} />
+<div class="login-signup-box">
+    <h1>Login</h1>
 
-        <label for="password">Password</label>
-        <input id="password" type="password" bind:value={password} />
+    <label for="username">Brugernavn</label>
+    <input id="username" bind:value={username}/>
 
-        <button type="button" on:click={login}>Login</button>
+    <label for="password">Password</label>
+    <input id="password" type="password" bind:value={password}/>
 
-        <p>Ikke bruger endnu?
-            <a href="/signup" class="signup-button">Opret bruger</a>
-        </p>
-    </div>
+    <button type="button" on:click={login}>Login</button>
+
+    <p>Ikke bruger endnu?
+        <a href="/signup" class="signup-button">Opret bruger</a>
+    </p>
+</div>
 

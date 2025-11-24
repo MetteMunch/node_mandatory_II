@@ -1,7 +1,6 @@
 <script>
     import {loggedIn, role, user} from "../stores/user.js";
-    import { onMount } from "svelte";
-    import { navigate } from "svelte-routing";
+    import {navigate} from "svelte-routing";
     import {fetchRequestJson} from "../utils/fetch.js";
 
 
@@ -17,7 +16,7 @@
     let url = "http://localhost:8080/session/logout"
 
     async function logout() {
-        await fetchRequestJson(url,{},"POST");
+        await fetchRequestJson(url, {}, "POST");
         user.set(null);
         loggedIn.set(false);
         role.set(null);
