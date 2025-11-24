@@ -14,7 +14,6 @@ export async function fetchGet(url) {
 export async function fetchRequestJson(url, bodyObjekt, httpVerbum) {
 
     const objectAsJsonString = JSON.stringify(bodyObjekt); //stringify konverterer vores objekt til en JSON-streng
-    console.log("omdanner object til JSON streng", objectAsJsonString);
     const fetchOptions = { //Her definerer vi et objekt "fetchOptions" som beskriver hvordan vi vil sende data
         method: httpVerbum,
         credentials: "include",

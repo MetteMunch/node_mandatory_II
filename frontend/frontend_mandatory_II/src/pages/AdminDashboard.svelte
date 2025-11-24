@@ -1,17 +1,31 @@
 <script>
-    import { loggedIn, role } from "../stores/user.js";
-
+    import {loggedIn, role, user} from "../stores/user.js";
     import { onMount } from "svelte";
+    import { navigate } from "svelte-routing";
+    import {fetchRequestJson} from "../utils/fetch.js";
 
-    onMount(() => {
-        if (!$loggedIn) {
-            window.location.href = "/login";
-        }
-        else if ($role !== "ADMIN") {
-            window.location.href = "/login";
-        }
-    });
+
+    $: if ($loggedIn === false) {
+        navigate("/login");
+    }
+
+    $: if ($loggedIn && $role !== "ADMIN") {
+        navigate("/UserDashboard");
+    }
+
+
+    let url = "http://localhost:8080/session/logout"
+
+    async function logout() {
+        await fetchRequestJson(url,{},"POST");
+        user.set(null);
+        loggedIn.set(false);
+        role.set(null);
+        navigate("/login");
+    }
 </script>
 
 
-<h1>Admin side</h1>
+<h1>Admin Dashboard</h1>
+
+<button type="button" on:click={logout}>Log ud</button>

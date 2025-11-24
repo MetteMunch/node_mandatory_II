@@ -11,7 +11,12 @@ router.get("/me", isLoggedIn, (req, res) => {
 
 //route til at tjekke logge brugeren ud / slette sessionen
 router.post("/logout", (req, res) => {
-    req.session.destroy(() => {
+    req.session.destroy(error => {
+        if(error) {
+            return res.status(500).send({ message: "Error logging out" });
+        }
+        res.clearCookie("connect.sid");
+
         res.send({ message: "Logged out" });
     });
 });

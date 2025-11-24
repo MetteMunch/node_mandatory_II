@@ -16,6 +16,10 @@
             user.set(data.user);
             loggedIn.set(true);
             role.set(data.user.role);
+        } else {
+            user.set(null);
+            loggedIn.set(false);
+            role.set(null);
         }
     });
 
