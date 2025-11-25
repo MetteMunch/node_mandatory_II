@@ -6,7 +6,8 @@
   "scripts": {
     "db-delete": "node ./db/createDatabase.js delete",
     "db-update": "node ./db/createDatabase.js update",
-    "db-insert": "node ./db/createDatabase.js insert"
+    "db-insert": "node ./db/createDatabase.js insert",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
