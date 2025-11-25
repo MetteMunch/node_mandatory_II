@@ -19,4 +19,4 @@
 
 <h1>Admin Dashboard</h1>
 
-<button type="button" on:click={logout}>Log ud</button>
+<button type="button" on:click={logout} class="signup-button">Log ud</button>

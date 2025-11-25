@@ -6,7 +6,10 @@
 
     <!-- HEADER -->
     <header class="header">
-        <div class="logo">LOGO</div>
+
+        <div class="logo">
+            <img src="/house.png" alt="hus logo">
+        </div>
 
         <nav class="nav">
             <Link to="/">HOME</Link>
@@ -22,6 +25,6 @@
 
     <!-- FOOTER -->
     <footer class="footer">
-        Footer med diverse oplysninger
+        Mandatory II - Node.js 25.11.2025 - Mette Munch Hansen
     </footer>
 </div>

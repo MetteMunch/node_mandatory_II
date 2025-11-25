@@ -40,11 +40,17 @@ a:hover {
 }
 
 .logo {
-  background: white;
-  padding: 15px 30px;
-  font-size: 24px;
-  font-weight: bold;
-  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo img {
+  height: 60px;          /* gør billedet lille og pænt */
+  width: auto;           /* bevarer proportioner */
+  display: block;
+  object-fit: contain;   /* gør at billedet ikke strækker */
+  background: transparent; /* fjerner evt. baggrund */
 }
 
 .nav a {
