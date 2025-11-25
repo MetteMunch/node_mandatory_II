@@ -74,3 +74,8 @@ Applikationen vil nu være tilgængelig på:
 
 http://localhost:5173/
 
+------------------------------------------------------------------------
+<img width="1004" height="768" alt="image" src="https://github.com/user-attachments/assets/4c1afb13-29c3-4ac9-bc01-b96a4a3b52c4" />
+
+<img width="1004" height="765" alt="image" src="https://github.com/user-attachments/assets/f07232e7-e8d4-4b14-9edf-d2f8b7f9647b" />
+
