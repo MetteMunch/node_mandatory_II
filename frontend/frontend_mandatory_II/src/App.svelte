@@ -10,6 +10,17 @@
     import Home from './pages/Home.svelte';
     import UserDashboard from "./pages/UserDashboard.svelte";
     import AdminDashboard from "./pages/AdminDashboard.svelte";
+    import 'toastr/build/toastr.min.css'
+    import toastr from 'toastr';
+
+    toastr.options = {
+        closeButton: true,
+        progressBar: false,
+        positionClass: "toast-top-center",
+        timeOut: 4000,
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut"
+    };
 
 
     //Denne kører når appen starter / loader eller ved refresh

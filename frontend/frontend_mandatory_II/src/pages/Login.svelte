@@ -2,7 +2,7 @@
     import {user, loggedIn, role} from "../stores/user.js";
     import {fetchRequestJson, fetchGet} from "../utils/fetch.js";
     import {navigate} from "svelte-routing";
-    import MainLayout from "../layouts/MainLayout.svelte";
+    import toastr from 'toastr';
 
     let username = "";
     let password = "";
@@ -16,7 +16,7 @@
         const data = await res.json();
 
         if (!res.ok) {
-            alert(data.message);
+            toastr.error("Ups noget gik galt -" + data.message);
             return;
         }
 
@@ -24,7 +24,7 @@
         const sessionData = await fetchGet("http://localhost:8080/session/me");
 
         if (!sessionData.loggedIn) {
-            alert("Kunne ikke logge ind – prøv igen");
+            toastr.error("Kunne ikke logge ind – prøv igen");
             return;
         }
 
@@ -32,6 +32,8 @@
         user.set(sessionData.user);
         loggedIn.set(true);
         role.set(sessionData.user.role);
+
+        toastr.success("Du er nu logget ind!");
 
         // redirect
         if (sessionData.user.role === "ADMIN") {
