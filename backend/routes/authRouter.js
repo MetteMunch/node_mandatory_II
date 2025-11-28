@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import bcrypt from 'bcryptjs';
 import db from "../db/db.js";
+import { sendResetEmail } from "../utils/email.js";
 
 const router = Router();
 
@@ -54,6 +55,20 @@ router.get("/secret", isLoggedIn, (req, res) => {
 
 router.get("/admindashboard", isAdmin, (req , res ) => {
     res.send({ data: "welcome to admin dashboard"});
+});
+
+// route til tjek af email udsendelse ved glemt passowrd (sker ikke virkelig ændring)
+
+router.post("/forgot-password", async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        await sendResetEmail(email);
+        res.send({ message: "Hvis emailen findes, er der sendt en besked." });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: "Kunne ikke sende email." });
+    }
 });
 
 export default router;

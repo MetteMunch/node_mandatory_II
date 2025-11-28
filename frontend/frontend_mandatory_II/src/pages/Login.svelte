@@ -60,6 +60,10 @@
     <p>Ikke bruger endnu?
         <a href="/signup" class="signup-button">Opret bruger</a>
     </p>
+
+    <p>Glemt password?
+        <a href="/forgot" class="signup-button">Klik her</a>
+    </p>
 </div>
 
 
