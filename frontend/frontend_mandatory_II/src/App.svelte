@@ -12,6 +12,9 @@
     import AdminDashboard from "./pages/AdminDashboard.svelte";
     import 'toastr/build/toastr.min.css'
     import toastr from 'toastr';
+    import ForgotPassword from "./pages/ForgotPassword.svelte";
+    import ResetDemo from "./pages/ResetDemo.svelte";
+
 
     toastr.options = {
         closeButton: true,
@@ -76,6 +79,17 @@
                     layout={MainLayout}
             />
         </Route>
+
+        <Route path="/forgot">
+            <ForgotPassword/>
+        </Route>
+
+        <Route path="/reset-demo">
+            <MainLayout>
+                <ResetDemo />
+            </MainLayout>
+        </Route>
+
 
     </div>
 
